@@ -1,5 +1,6 @@
 package com.github.rateldesign;
 
+import com.github.rateldesign.common.Banner;
 import com.github.rateldesign.common.util.Assert;
 import com.github.rateldesign.common.util.StopWatch;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,7 @@ public class SpringApplication {
 
     public void run() {
         Assert.notNull(mainClass, "not run, class is null");
-        // TODO:MQH 2020/10/12 打印banner
+        Banner.print(mainClass, System.out);
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         // TODO:MQH 2020/10/12 实现AOP

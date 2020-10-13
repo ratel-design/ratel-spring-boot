@@ -1,4 +1,5 @@
 target/
+log/
 
 # IntelliJ project files
 .idea
