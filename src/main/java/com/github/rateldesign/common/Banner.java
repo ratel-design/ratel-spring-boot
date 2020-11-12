@@ -20,7 +20,7 @@ public class Banner {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Banner.class);
 
-    public static final String DEFAULT_BANNER_NAME = "banner.txt";
+    public static final String DEFAULT_BANNER_LOCATION = "banner.txt";
 
     private static final String[] BANNER = {
             "                                     ,DW######E.                   . .,:",
@@ -69,7 +69,7 @@ public class Banner {
             return;
         }
 
-        URL url = sourceClass.getClassLoader().getResource(DEFAULT_BANNER_NAME);
+        URL url = sourceClass.getClassLoader().getResource(DEFAULT_BANNER_LOCATION);
         if (url == null) {
             print(out);
             return;

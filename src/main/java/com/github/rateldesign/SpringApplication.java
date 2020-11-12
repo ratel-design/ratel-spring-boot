@@ -1,8 +1,10 @@
 package com.github.rateldesign;
 
 import com.github.rateldesign.common.Banner;
-import com.github.rateldesign.common.util.Assert;
 import com.github.rateldesign.common.util.StopWatch;
+import com.github.rateldesign.context.ApplicationContext;
+import com.github.rateldesign.context.annotation.ComponentScan;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -11,22 +13,21 @@ import org.slf4j.LoggerFactory;
  * @Date 2020/10/10 4:53 下午
  */
 public class SpringApplication {
+
+    private static final Logger log = LoggerFactory.getLogger(SpringApplication.class);
     
-    private final Class<?> mainClass;
-
-    private SpringApplication(Class<?> mainClass) {
-        this.mainClass = mainClass;
+    private SpringApplication() {
     }
 
-    public static void run(Class<?> mainClass) {
-        new SpringApplication(mainClass).run();
+    public static void run(Class<?> mainClass, String ... args) {
+        new SpringApplication().run(mainClass);
     }
 
-    public void run() {
-        Assert.notNull(mainClass, "not run, class is null");
+    private void run(Class<?> mainClass) {
         Banner.print(mainClass, System.out);
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
+        new ApplicationContext(mainClass).refresh();
         // TODO:MQH 2020/10/12 实现AOP
         // TODO:MQH 2020/10/12 实现IOC
         // TODO:MQH 2020/10/12 实现 Autowired、Service注解 解决循环引用
@@ -34,5 +35,6 @@ public class SpringApplication {
         stopWatch.stop();
         new StartupInfoLogger(mainClass).logStarted(LoggerFactory.getLogger(mainClass), stopWatch);
     }
+
 
 }
